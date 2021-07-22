@@ -1,4 +1,4 @@
-export const round = (val, decimalDigits = 2) => {
+export const round = (val: number, decimalDigits = 2) => {
   if (!val || !val.toFixed) {
     return 0;
   }

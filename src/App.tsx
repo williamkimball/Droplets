@@ -8,39 +8,39 @@
 
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
 
-import {StyleSheet, Text, useColorScheme, View, Button} from 'react-native';
+import { StyleSheet, Text, useColorScheme, View, Button } from 'react-native';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import FireScreen from './src/Components/FireScreen/FireScreen';
+// import {Colors} from 'react-native/Libraries/NewAppScreen';
+import FireScreen from './Components/FireScreen/FireScreen';
 
-const Section = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+// const Section = ({children, title}) => {
+//   const isDarkMode = useColorScheme() === 'dark';
+//   return (
+//     <View style={styles.sectionContainer}>
+//       <Text
+//         style={[
+//           styles.sectionTitle,
+//           {
+//             color: isDarkMode ? Colors.white : Colors.black,
+//           },
+//         ]}>
+//         {title}
+//       </Text>
+//       <Text
+//         style={[
+//           styles.sectionDescription,
+//           {
+//             color: isDarkMode ? Colors.light : Colors.dark,
+//           },
+//         ]}>
+//         {children}
+//       </Text>
+//     </View>
+//   );
+// };
 
 function StackScreen() {
   return (
@@ -62,15 +62,15 @@ function StackScreen() {
       <Stack.Screen
         name="Fire Calculator"
         component={FireScreen}
-        initialParams={{itemId: 42}}
+        initialParams={{ itemId: 42 }}
       />
     </Stack.Navigator>
   );
 }
 
-function HomeScreen({navigation}) {
+function HomeScreen({ navigation }: StackScreenProps<any>) {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
       <Button
         title="Go to Fire Calculator"

@@ -1,0 +1,59 @@
+8 ESLint rules behave differently from their TSLint counterparts:
+  * eqeqeq:
+    - Option "allow-undefined-check" is not supported by ESLint. Option "smart" is the closest.
+    - Option "smart" allows for comparing two literal values, evaluating the value of typeof and null comparisons.
+  * no-underscore-dangle:
+    - Leading or trailing underscores (_) on identifiers will now be forbidden.
+  * @typescript-eslint/quotes:
+    - Option "jsx-single" is not supported by ESLint.
+  * react/jsx-no-bind:
+    - ESLint rule 'jsx-no-bind' also checks for arrow functions
+    - ESLint rule 'jsx-no-bind' also checks for Function.bind
+  * no-invalid-this:
+    - Functions in methods will no longer be ignored.
+  * @typescript-eslint/no-unused-expressions:
+    - The TSLint optional config "allow-new" is the default ESLint behavior and will no longer be ignored.
+  * prefer-arrow/prefer-arrow-functions:
+    - ESLint does not support allowing standalone function declarations.
+    - ESLint does not support allowing named functions defined with the function keyword.
+  * prefer-template:
+    - Single concatenations will no longer be ignored.
+
+Could not resolve ESLint extension 'eslint-plugin-@react-native-community'.: Error: Cannot find module '/Users/williamkimball/workspace/Droplets/eslint-plugin-@react-native-community'
+Require stack:
+- /Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/adapters/nativeImporter.js
+- /Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/api/dependencies.js
+- /Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/cli/main.js
+- /Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/bin/tslint-to-eslint-config
+    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:927:15)
+    at Function.Module._load (node:internal/modules/cjs/loader:772:27)
+    at Module.require (node:internal/modules/cjs/loader:999:19)
+    at require (node:internal/modules/cjs/helpers:93:18)
+    at /Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/adapters/nativeImporter.js:25:64
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at Object.nativeImporter (/Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/adapters/nativeImporter.js:25:16)
+    at importFile (/Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/input/importer.js:29:20)
+    at importer (/Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/input/importer.js:47:28)
+    at /Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/converters/lintConfigs/summarization/retrieveExtendsValues.js:51:26
+    at Function.all (<anonymous>:null:null)
+    at retrieveExtendsValues (/Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/converters/lintConfigs/summarization/retrieveExtendsValues.js:37:5)
+    at summarizePackageRules (/Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/converters/lintConfigs/summarization/summarizePackageRules.js:29:57)
+    at createESLintConfiguration (/Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/converters/lintConfigs/createESLintConfiguration.js:8:12)
+    at convertLintConfig (/Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/converters/lintConfigs/convertLintConfig.js:13:37)
+    at tryConvertConfig (/Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/cli/runCli.js:62:18)
+    at Object.runCli (/Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/cli/runCli.js:48:24)
+    at Object.main (/Users/williamkimball/.npm/_npx/ab091f4918e92575/node_modules/tslint-to-eslint-config/src/cli/main.js:10:30)
+
+
+
+9 rules are not known by tslint-to-eslint-config to have ESLint equivalents:
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "jsx-alignment".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "jsx-no-string-ref".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "no-duplicate-case".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "no-extra-boolean-cast".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "no-extra-semi".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "no-multi-spaces".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "ter-indent".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "typedef".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "whitespace".
+

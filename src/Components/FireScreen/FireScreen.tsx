@@ -7,11 +7,11 @@ import { Button, View, Text, SafeAreaView } from 'react-native';
 import Slider from '@react-native-community/slider';
 import NumberFormat from 'react-number-format';
 import { CalculateInput } from '../CalculateInput';
-import round from '../../Utilities/number-utility';
+import { round } from '../../Utilities/number-utility';
+import { Forecast } from '../models/forecast.model';
 
-// const FireScreen = ({navigation}) => {
-export default class FireScreen extends Component {
-  constructor(props) {
+export default class FireScreen extends React.Component<any, any> {
+  constructor(props: any) {
     super(props);
     this.state = {
       ageSlider: 30,
@@ -26,61 +26,63 @@ export default class FireScreen extends Component {
       expectedAnnualGrowthRate: 0.07,
     };
   }
-  getVal(val) {
+  getVal(val: any) {
     console.warn(val);
   }
 
-  computeForecast(calculateInput: CalculateInput) {
-    const stopForecastingAmount = calculateInput.fiNumber * 1.6; // default to a bit more than Fat FI.
+  // computeForecast(calculateInput: CalculateInput) {
+  //   const stopForecastingAmount = calculateInput.fiNumber * 1.6; // default to a bit more than Fat FI.
 
-    const annualExpenses = calculateInput.annualExpenses;
-    const monthlyAverageGrowth =
-      1 + calculateInput.expectedAnnualGrowthRate / 12;
-    const startingNetWorth = calculateInput.netWorth;
-    let currentNetWorth = startingNetWorth;
-    let totalContributions = currentNetWorth; // can't yet delve into the past
-    let month = 0;
-    const monthlyForecasts = [
-      {
-        monthIndex: 0,
-        netWorth: startingNetWorth,
-        lastMonthNetWorth: 0,
-        contribution: 0,
-        interestGains: 0,
-        timesAnnualExpenses: round(startingNetWorth / annualExpenses),
-        totalContributions: totalContributions,
-        totalReturns: 0,
-      },
-    ];
-    while (currentNetWorth < stopForecastingAmount && month < 1000) {
-      const contribution = calculateInput.monthlyContribution;
-      const newNetWorth = round(
-        ((currentNetWorth + contribution) * 100 * monthlyAverageGrowth) / 100
-      );
-      const interestGain = round(newNetWorth - currentNetWorth - contribution);
-      const timesAnnualExpenses = round(newNetWorth / annualExpenses);
-      month++;
-      totalContributions += contribution;
-      const totalReturns = round(newNetWorth - totalContributions);
-      monthlyForecasts.push({
-        monthIndex: month,
-        netWorth: newNetWorth,
-        lastMonthNetWorth: currentNetWorth,
-        contribution: contribution,
-        interestGains: interestGain,
-        timesAnnualExpenses: timesAnnualExpenses,
-        totalContributions: totalContributions,
-        totalReturns: totalReturns,
-      });
-      currentNetWorth = newNetWorth;
-    }
-    this.monthlyForecasts = monthlyForecasts;
-  }
+  //   const annualExpenses = calculateInput.annualExpenses;
+  //   const monthlyAverageGrowth =
+  //     1 + calculateInput.expectedAnnualGrowthRate / 12;
+  //   const startingNetWorth = calculateInput.netWorth;
+  //   let currentNetWorth = startingNetWorth;
+  //   let totalContributions = currentNetWorth; // can't yet delve into the past
+  //   let month = 0;
+  //   const monthlyForecasts = [
+  //     {
+  //       monthIndex: 0,
+  //       netWorth: startingNetWorth,
+  //       lastMonthNetWorth: 0,
+  //       contribution: 0,
+  //       interestGains: 0,
+  //       timesAnnualExpenses: round(startingNetWorth / annualExpenses),
+  //       totalContributions: totalContributions,
+  //       totalReturns: 0,
+  //     },
+  //   ];
+  //   while (currentNetWorth < stopForecastingAmount && month < 1000) {
+  //     const contribution = calculateInput.monthlyContribution;
+  //     const newNetWorth = round(
+  //       ((currentNetWorth + contribution) * 100 * monthlyAverageGrowth) / 100
+  //     );
+  //     const interestGain = round(newNetWorth - currentNetWorth - contribution);
+  //     const timesAnnualExpenses = round(newNetWorth / annualExpenses);
+  //     month++;
+  //     totalContributions += contribution;
+  //     const totalReturns = round(newNetWorth - totalContributions);
+  //     monthlyForecasts.push({
+  //       monthIndex: month,
+  //       netWorth: newNetWorth,
+  //       lastMonthNetWorth: currentNetWorth,
+  //       contribution: contribution,
+  //       interestGains: interestGain,
+  //       timesAnnualExpenses: timesAnnualExpenses,
+  //       totalContributions: totalContributions,
+  //       totalReturns: totalReturns,
+  //     });
+  //     currentNetWorth = newNetWorth;
+  //   }
+  //   this.setState({ monthlyForecasts: monthlyForecasts });
+  // }
 
   calculateFire() {
     // this.setState({annualInvestment: 40000});
-    this.setState({ fireNumber: 25 * this.state.annualInvestment });
-    this.setState({ yearsToFire: 25 * this.state.annualInvestment });
+    // this.setState({ fireNumber: 25 * this.state.annualInvestment });
+    // this.setState({ yearsToFire: 25 * this.state.annualInvestment });
+    Forecast.
+
   }
 
   render() {
@@ -94,27 +96,6 @@ export default class FireScreen extends Component {
               justifyContent: 'center',
             }}
           >
-            {/* <Text
-              style={{
-                fontSize: 25,
-                textAlign: 'center',
-                marginBottom: 16,
-              }}>
-              Age: {this.state.ageSlider}
-            </Text>
-            <Slider
-              style={{width: 200, height: 40}}
-              minimumValue={0}
-              maximumValue={100}
-              minimumTrackTintColor="#FFFFFF"
-              maximumTrackTintColor="#000000"
-              value={this.ageSlider}
-              onValueChange={val => {
-                this.setState({ageSlider: val});
-                this.calculateFire();
-              }}
-              step={1}
-            /> */}
             <Text
               style={{
                 fontSize: 25,
@@ -166,7 +147,7 @@ export default class FireScreen extends Component {
               maximumValue={100000}
               minimumTrackTintColor="#FFFFFF"
               maximumTrackTintColor="#000000"
-              value={this.annualInvestment}
+              value={this.state.annualInvestment}
               onValueChange={(val) => {
                 this.setState({ annualInvestment: val });
                 this.calculateFire();
