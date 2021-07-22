@@ -1,0 +1,33 @@
+%blue {
+  color: blue;
+}
+.myClass {
+  @extend %blue;
+}
+.myOtherClass {
+  color: red;
+}
+.my-dashed-class {
+  color: green;
+}
+
+.flex1 {
+    flex: 1
+}
+
+.view {
+    flex: 1;
+    padding: 16;
+}
+
+.ViewCenter {
+    flex: 1;
+    align-items: 'center';
+    justify-content: 'center';
+    }
+
+    .text-top {
+    font-size: 25;
+    text-align: 'center';
+    margin-bottom: 16;
+    }

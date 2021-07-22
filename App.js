@@ -8,29 +8,15 @@
 
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  Button,
-} from 'react-native';
+import {StyleSheet, Text, useColorScheme, View, Button} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import FireScreen from './src/Components/FireScreen/FireScreen';
 
-const Section = ({ children, title }) => {
+const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -74,50 +60,28 @@ function StackScreen() {
         }}
       />
       <Stack.Screen
-        name="Details"
-        component={DetailsScreen}
-        initialParams={{ itemId: 42 }}
+        name="Fire Calculator"
+        component={FireScreen}
+        initialParams={{itemId: 42}}
       />
     </Stack.Navigator>
   );
 }
 
-function HomeScreen({ navigation }) {
+function HomeScreen({navigation}) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Home Screen</Text>
       <Button
-        title="Go to Details"
+        title="Go to Fire Calculator"
         onPress={() => {
-          /* 1. Navigate to the Details route with params */
-          navigation.navigate('Details', {
+          /* 1. Navigate to the Fire Calculator route with params */
+          navigation.navigate('Fire Calculator', {
             itemId: 86,
             otherParam: 'anything you want here',
           });
         }}
       />
-    </View>
-  );
-}
-
-function DetailsScreen({ route, navigation }) {
-  /* 2. Get the param */
-  const { itemId, otherParam } = route.params;
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      <Text>itemId: {JSON.stringify(itemId)}</Text>
-      <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-      <Button
-        title="Go to Details... again"
-        onPress={() =>
-          navigation.push('Details', {
-            itemId: Math.floor(Math.random() * 100),
-          })
-        }
-      />
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
 }
@@ -128,15 +92,6 @@ function App() {
   return (
     <NavigationContainer>
       <StackScreen />
-      {/* StackScreen */}
-      {/* <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{title: 'Overview'}}
-        />
-      </Stack.Navigator> */}
-
     </NavigationContainer>
   );
 }
