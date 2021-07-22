@@ -5,20 +5,29 @@
 import React, {Component} from 'react';
 import {Button, View, Text, SafeAreaView} from 'react-native';
 import Slider from '@react-native-community/slider';
-// import styles from './FireScreen.scss';
-// import Homescreen from '../../../App';
-// import {NavigationContainer} from '@react-navigation/native';
-// import {createStackNavigator} from '@react-navigation/stack';
+import NumberFormat from 'react-number-format';
 
 // const FireScreen = ({navigation}) => {
 export default class FireScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {ageSlider: 0};
+    this.state = {
+      ageSlider: 30,
+      annualInvestment: 40000,
+      returnRate: 0.08,
+      currentInvestments: 50000,
+    };
   }
   getVal(val) {
     console.warn(val);
   }
+
+  calculateFire() {
+    // this.setState({annualInvestment: 40000});
+    this.setState({fireNumber: 25 * this.state.annualInvestment});
+    this.setState({yearsToFire: 25 * this.state.annualInvestment});
+  }
+
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
@@ -29,7 +38,7 @@ export default class FireScreen extends Component {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <Text
+            {/* <Text
               style={{
                 fontSize: 25,
                 textAlign: 'center',
@@ -44,8 +53,82 @@ export default class FireScreen extends Component {
               minimumTrackTintColor="#FFFFFF"
               maximumTrackTintColor="#000000"
               value={this.ageSlider}
-              onValueChange={val => this.setState({ageSlider: val})}
+              onValueChange={val => {
+                this.setState({ageSlider: val});
+                this.calculateFire();
+              }}
               step={1}
+            /> */}
+            <Text
+              style={{
+                fontSize: 25,
+                textAlign: 'center',
+                marginBottom: 16,
+              }}>
+              Current Investments:
+              <NumberFormat
+                value={this.state.currentInvestments}
+                displayType={'text'}
+                prefix="$"
+                thousandSeparator=","
+                renderText={value => <Text>{value}</Text>}
+              />
+            </Text>
+            <Slider
+              style={{width: 200, height: 40}}
+              minimumValue={0}
+              maximumValue={1500000}
+              minimumTrackTintColor="#FFFFFF"
+              maximumTrackTintColor="#000000"
+              value={40000}
+              onValueChange={val => {
+                this.setState({currentInvestments: val});
+                this.calculateFire();
+              }}
+              step={1000}
+            />
+            <Text
+              style={{
+                fontSize: 25,
+                textAlign: 'center',
+                marginBottom: 16,
+              }}>
+              Annual Investment:
+              <NumberFormat
+                value={this.state.annualInvestment}
+                displayType={'text'}
+                prefix="$"
+                thousandSeparator=","
+                renderText={value => <Text>{value}</Text>}
+              />
+            </Text>
+            <Slider
+              style={{width: 200, height: 40}}
+              minimumValue={0}
+              maximumValue={100000}
+              minimumTrackTintColor="#FFFFFF"
+              maximumTrackTintColor="#000000"
+              value={this.annualInvestment}
+              onValueChange={val => {
+                this.setState({annualInvestment: val});
+                this.calculateFire();
+              }}
+              step={1000}
+            />
+            <Text
+              style={{
+                fontSize: 25,
+                textAlign: 'center',
+                marginBottom: 16,
+              }}>
+              Fire Number: {this.state.fireNumber}
+            </Text>
+            <NumberFormat
+              value={this.state.fireNumber}
+              displayType={'text'}
+              prefix="$"
+              thousandSeparator=","
+              renderText={value => <Text>{value}</Text>}
             />
             <Button
               onPress={() => this.props.navigation.navigate('Home')}
