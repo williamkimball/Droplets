@@ -3,10 +3,9 @@
 // https://aboutreact.com/react-native-global-scope-variables/
 
 import React, { Component } from 'react';
-import { Button, View, Text, SafeAreaView, TextInput } from 'react-native';
+import { Button, View, Text, SafeAreaView, TextInput, Dimensions, ScrollView } from 'react-native';
 import Slider from '@react-native-community/slider';
-// import debounce from 'lodash.';
-// import { TextInput } from 'react-native-gesture-handler';
+import { LineChart } from "react-native-chart-kit";
 
 let _ = require('lodash');
 export default class FireScreen extends React.Component<any, any> {
@@ -25,7 +24,8 @@ export default class FireScreen extends React.Component<any, any> {
       expectedAnnualGrowthRate: 0.07,
       fiNumber: 750000,
       yearsToFire: 0,
-      yearlyForecast: []
+      yearlyForecast: [0],
+      yearsToFireArray: [0]
     };
 
 
@@ -42,12 +42,18 @@ export default class FireScreen extends React.Component<any, any> {
     this.setState({ yearlyForecast: [] });
 
     while (previousNetWorth < this.state.fiNumber) {
-      previousNetWorth = (previousNetWorth * (1 + .07) + (annualInvestment))
+      previousNetWorth = (previousNetWorth * (1 + this.state.expectedAnnualGrowthRate) + (annualInvestment))
       years++
-      this.state.yearlyForecast.push([previousNetWorth, years])
-
+      this.state.yearlyForecast.push(previousNetWorth);
+      console.log(typeof (this.state.yearlyForecast[0]))
     }
-    this.setState({ yearsToFire: years });
+    this.setState({ yearsToFire: years }, () => {
+      let i: number = 0;
+      while (i < years) {
+        this.state.yearsToFireArray.push(i + 1);
+        i++;
+      }
+    });
     // const stopForecastingAmount = this.state.fiNumber * 1.6; // default to a bit more than Fat FI.
 
     // const annualExpenses = this.state.annualExpenses;
@@ -138,7 +144,7 @@ export default class FireScreen extends React.Component<any, any> {
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flex: 1, padding: 16 }}>
+        <ScrollView style={{ flex: 1, padding: 16 }}>
           <View
             style={{
               flex: 1,
@@ -270,13 +276,49 @@ export default class FireScreen extends React.Component<any, any> {
             >
               Age at FIRE: {this.state.yearsToFire + this.state.ageSlider}
             </Text>
+            <LineChart
+              data={{
+                labels: this.state.yearsToFireArray,
+                datasets: [
+                  {
+                    data: []
+                  }
+                ]
+              }}
+              width={Dimensions.get("window").width} // from react-native
+              height={220}
+              yAxisLabel="$"
+              yAxisSuffix="k"
+              yAxisInterval={1} // optional, defaults to 1
+              chartConfig={{
+                backgroundColor: "#e26a00",
+                backgroundGradientFrom: "#fb8c00",
+                backgroundGradientTo: "#ffa726",
+                decimalPlaces: 2, // optional, defaults to 2dp
+                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                style: {
+                  borderRadius: 16
+                },
+                propsForDots: {
+                  r: "6",
+                  strokeWidth: "2",
+                  stroke: "#ffa726"
+                }
+              }}
+              bezier
+              style={{
+                marginVertical: 8,
+                borderRadius: 16
+              }}
+            />
 
             <Button
               onPress={() => this.props.navigation.navigate('Home')}
               title="Go to Home Page"
             />
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }
